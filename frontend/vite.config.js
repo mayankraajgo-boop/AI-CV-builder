@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
 
   // 🔥 IMPORTANT FOR NETLIFY
-  base: "/",
+  base: "./",
 
   server: {
     port: 3000,
