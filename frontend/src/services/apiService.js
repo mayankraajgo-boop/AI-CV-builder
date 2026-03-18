@@ -1,7 +1,13 @@
 import axios from 'axios';
 
+// Dev: Vite proxy handles /api → localhost:5000
+// Prod: hardcoded Render backend URL
+const BASE_URL = import.meta.env.DEV
+  ? '/api'
+  : 'https://cvpilot-backend.onrender.com/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: BASE_URL,
   headers: { 'Content-Type': 'application/json' },
 });
 
