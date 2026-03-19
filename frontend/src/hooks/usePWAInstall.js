@@ -1,29 +1,52 @@
 import { useState, useEffect } from 'react';
 
-/**
- * Returns { canInstall, install } 
- * canInstall = true when browser fires beforeinstallprompt
- */
 export default function usePWAInstall() {
-  const [prompt, setPrompt] = useState(null);
-  const [canInstall, setCanInstall] = useState(false);
+  const [prompt, setPrompt] = useState(() => window.__pwaPrompt || null);
+  const [canInstall, setCanInstall] = useState(() => !!window.__pwaPrompt);
 
   useEffect(() => {
-    const handler = (e) => {
+    // If prompt was already captured before React mounted, use it
+    if (window.__pwaPrompt && !prompt) {
+      setPrompt(window.__pwaPrompt);
+      setCanInstall(true);
+    }
+
+    const onReady = () => {
+      if (window.__pwaPrompt) {
+        setPrompt(window.__pwaPrompt);
+        setCanInstall(true);
+      }
+    };
+    const onBeforeInstall = (e) => {
       e.preventDefault();
+      window.__pwaPrompt = e;
       setPrompt(e);
       setCanInstall(true);
     };
-    window.addEventListener('beforeinstallprompt', handler);
-    window.addEventListener('appinstalled', () => setCanInstall(false));
-    return () => window.removeEventListener('beforeinstallprompt', handler);
+    const onInstalled = () => {
+      window.__pwaPrompt = null;
+      setCanInstall(false);
+      setPrompt(null);
+    };
+
+    window.addEventListener('pwaPromptReady', onReady);
+    window.addEventListener('beforeinstallprompt', onBeforeInstall);
+    window.addEventListener('appinstalled', onInstalled);
+    return () => {
+      window.removeEventListener('pwaPromptReady', onReady);
+      window.removeEventListener('beforeinstallprompt', onBeforeInstall);
+      window.removeEventListener('appinstalled', onInstalled);
+    };
   }, []);
 
   const install = async () => {
     if (!prompt) return;
     prompt.prompt();
     const { outcome } = await prompt.userChoice;
-    if (outcome === 'accepted') setCanInstall(false);
+    if (outcome === 'accepted') {
+      window.__pwaPrompt = null;
+      setCanInstall(false);
+    }
     setPrompt(null);
   };
 

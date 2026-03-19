@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import { getMe } from './store/authSliceV2';
 import PageLoader from './components/PageLoader';
 import BackgroundAnimation from './components/BackgroundAnimation';
+import PWAInstallBanner from './components/PWAInstallBanner';
 
 import Home from './pages/Home';
 import Auth from './pages/AuthV2';
@@ -78,6 +79,7 @@ export default function App() {
   return (
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <BackgroundAnimation />
+      <PWAInstallBanner />
       <NavProgressBar />
       <RouteLoader />
       <Toaster

@@ -190,6 +190,63 @@ function createProgram(gl, vs, fs) {
   return p;
 }
 
+// ── Top Aurora Strip ──────────────────────────────────────────────────────────
+function TopAurora() {
+  return (
+    <div aria-hidden="true" style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 0, pointerEvents: 'none', userSelect: 'none' }}>
+      {/* Main aurora glow */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, width: '100%', height: '180px',
+        background: 'linear-gradient(180deg, rgba(79,70,229,0.22) 0%, rgba(124,58,237,0.12) 40%, transparent 100%)',
+        animation: 'auroraPulse 6s ease-in-out infinite',
+      }} />
+      {/* Sweeping color bands */}
+      <div style={{
+        position: 'absolute', top: 0, left: '-20%', width: '60%', height: '120px',
+        background: 'linear-gradient(180deg, rgba(99,102,241,0.28) 0%, transparent 100%)',
+        borderRadius: '0 0 60% 60%',
+        animation: 'auroraSweep 8s ease-in-out infinite',
+        filter: 'blur(18px)',
+      }} />
+      <div style={{
+        position: 'absolute', top: 0, left: '30%', width: '50%', height: '100px',
+        background: 'linear-gradient(180deg, rgba(139,92,246,0.22) 0%, transparent 100%)',
+        borderRadius: '0 0 50% 50%',
+        animation: 'auroraSweep 10s ease-in-out infinite reverse',
+        filter: 'blur(22px)',
+      }} />
+      <div style={{
+        position: 'absolute', top: 0, right: '-10%', width: '45%', height: '90px',
+        background: 'linear-gradient(180deg, rgba(16,185,129,0.14) 0%, transparent 100%)',
+        borderRadius: '0 0 50% 50%',
+        animation: 'auroraSweep 12s ease-in-out infinite',
+        filter: 'blur(20px)',
+      }} />
+      {/* Top edge bright line */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, width: '100%', height: '2px',
+        background: 'linear-gradient(90deg, transparent 0%, rgba(99,102,241,0.7) 20%, rgba(139,92,246,0.9) 50%, rgba(16,185,129,0.5) 80%, transparent 100%)',
+        animation: 'auroraLine 5s ease-in-out infinite',
+      }} />
+      <style>{`
+        @keyframes auroraPulse {
+          0%,100% { opacity: 0.7; transform: scaleY(1); }
+          50%      { opacity: 1;   transform: scaleY(1.15); }
+        }
+        @keyframes auroraSweep {
+          0%,100% { transform: translateX(0) scaleX(1); opacity: 0.8; }
+          33%     { transform: translateX(8%) scaleX(1.1); opacity: 1; }
+          66%     { transform: translateX(-5%) scaleX(0.95); opacity: 0.6; }
+        }
+        @keyframes auroraLine {
+          0%,100% { opacity: 0.5; background-position: 0% center; }
+          50%     { opacity: 1;   background-position: 100% center; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 export default function BackgroundAnimation() {
   const canvasRef = useRef(null);
@@ -453,21 +510,29 @@ export default function BackgroundAnimation() {
   }, [cleanup]);
 
   if (typeof window !== 'undefined' && isLowPerformance()) {
-    return <StaticFallback />;
+    return (
+      <>
+        <StaticFallback />
+        <TopAurora />
+      </>
+    );
   }
 
   return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      style={{
-        position: 'fixed',
-        top: 0, left: 0,
-        width: '100%', height: '100%',
-        zIndex: 0,
-        pointerEvents: 'none',
-        display: 'block',
-      }}
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          top: 0, left: 0,
+          width: '100%', height: '100%',
+          zIndex: 0,
+          pointerEvents: 'none',
+          display: 'block',
+        }}
+      />
+      <TopAurora />
+    </>
   );
 }
