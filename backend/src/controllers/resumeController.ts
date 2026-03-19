@@ -29,7 +29,8 @@ export const getResume = async (req: Request, res: Response, next: NextFunction)
 export const createResume = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const userId = (req as AuthRequest).userId;
-    const resume = await Resume.create({ userId, ...req.body });
+    const { title = 'Untitled Resume', templateId = 'modern', personalInfo = {}, skills = [], experience = [], education = [], projects = [] } = req.body;
+    const resume = await Resume.create({ userId, title, templateId, personalInfo, skills, experience, education, projects });
     res.status(201).json({ resume });
   } catch (error) {
     next(error);

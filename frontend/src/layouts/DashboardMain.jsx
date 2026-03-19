@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import SidebarMain from '../components/SidebarMain';
+import usePWAInstall from '../hooks/usePWAInstall';
 
 const BottomNav = () => {
   const location = useLocation();
@@ -7,6 +8,7 @@ const BottomNav = () => {
   const items = [
     { path: '/dashboard', icon: 'fas fa-th-large', label: 'Home', exact: true },
     { path: '/dashboard/resumes', icon: 'fas fa-file-alt', label: 'Resumes' },
+    { path: '/ats-analyzer', icon: 'fas fa-chart-bar', label: 'ATS' },
     { path: '/templates', icon: 'fas fa-layer-group', label: 'Templates' },
     { path: '/settings', icon: 'fas fa-cog', label: 'Settings' },
   ];
@@ -26,7 +28,9 @@ const BottomNav = () => {
   );
 };
 
-const DashboardMain = ({ children }) => (
+const DashboardMain = ({ children }) => {
+  const { canInstall, install } = usePWAInstall();
+  return (
   <div style={{ display: 'flex', minHeight: '100vh', background: '#0F172A' }}>
     {/* Desktop sidebar */}
     <SidebarMain />

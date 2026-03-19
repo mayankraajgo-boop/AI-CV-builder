@@ -4,7 +4,7 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import connectDB from './config/db';
-import authRoutes from './routes/authRoutes';
+import authRoutes from './routes/authRoutesV2';
 import resumeRoutes from './routes/resumeRoutes';
 import aiRoutes from './routes/aiRoutes';
 import { errorHandler } from './middleware/errorHandler';

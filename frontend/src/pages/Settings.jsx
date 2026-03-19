@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfile } from '../store/authSlice';
-import DashboardLayout from '../layouts/DashboardMain';
+import DashboardLayout from '../layouts/DashboardMainV2';
 import toast from 'react-hot-toast';
 
 export default function Settings() {

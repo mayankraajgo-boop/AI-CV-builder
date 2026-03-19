@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchResumes, createResume, deleteResume, updateResume } from '../store/resumeSlice';
-import DashboardLayout from '../layouts/DashboardMain';
+import DashboardLayout from '../layouts/DashboardMainV2';
 import toast from 'react-hot-toast';
 
 const SkeletonCard = () => (
@@ -41,10 +41,8 @@ const ResumeCard = ({ resume, onDuplicate, onRename }) => {
   const scoreColor = resume.atsScore >= 80 ? '#10B981' : resume.atsScore >= 50 ? '#F59E0B' : '#EF4444';
 
   return (
-    <div className="card h-100" style={{ cursor: 'pointer', transition: 'all 0.25s', position: 'relative', overflow: 'visible' }}
+    <div className="card h-100" style={{ cursor: 'pointer', position: 'relative', overflow: 'visible' }}
       onClick={() => !renaming && navigate(`/builder/${resume._id}`)}
-      onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(79,70,229,0.25)'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = ''; }}
     >
       <div style={{ height: 3, background: 'linear-gradient(90deg,#4F46E5,#7C3AED)', position: 'absolute', top: 0, left: 0, right: 0, borderRadius: '12px 12px 0 0' }} />
 
@@ -180,7 +178,7 @@ const Dashboard = () => {
         </div>
 
         {/* Stats */}
-        <div className="row g-3 mb-4 stagger-children">
+        <div className="row g-3 mb-4">
           {stats.map((s, i) => (
             <div className="col-6 col-lg-3" key={i}>
               <div className="card p-3 d-flex flex-row align-items-center gap-3">

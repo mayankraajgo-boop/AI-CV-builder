@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../store/authSlice';
+import { logout } from '../store/authSliceV2';
+import usePWAInstall from '../hooks/usePWAInstall';
 
 const CVPilotLogo = ({ size = 36 }) => (
   <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,6 +24,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+  const { canInstall, install } = usePWAInstall();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -39,8 +41,9 @@ const Navbar = () => {
     <nav
       className="navbar navbar-expand-lg fixed-top"
       style={{
-        background: scrolled ? 'rgba(15,23,42,0.95)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        background: scrolled ? 'rgba(4,9,26,0.92)' : 'rgba(4,9,26,0.4)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         borderBottom: scrolled ? '1px solid #334155' : 'none',
         transition: 'all 0.3s ease',
         padding: '12px 0',
@@ -85,6 +88,16 @@ const Navbar = () => {
           </ul>
 
           <div className="d-flex align-items-center gap-3">
+            {canInstall && (
+              <button
+                onClick={install}
+                className="btn btn-sm"
+                style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.4)', color: '#10B981', borderRadius: 8, fontSize: '0.8rem', fontWeight: 600 }}
+                title="Install CVPilot app"
+              >
+                <i className="fas fa-download me-1" />Install App
+              </button>
+            )}
             {user ? (
               <>
                 <Link to="/dashboard" className="btn btn-outline-primary btn-sm">

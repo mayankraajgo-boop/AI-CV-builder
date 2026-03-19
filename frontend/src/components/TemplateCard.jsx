@@ -6,13 +6,10 @@ const TemplateCard = ({ template, selected, onSelect }) => {
       className="card"
       style={{
         cursor: 'pointer',
-        transition: 'all 0.25s',
         border: selected ? '2px solid #4F46E5' : '1px solid #334155',
         boxShadow: selected ? '0 0 20px rgba(79,70,229,0.3)' : '',
       }}
       onClick={() => onSelect(template.id)}
-      onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
     >
       {/* Preview area */}
       <div style={{ height: 200, background: template.preview, borderRadius: '12px 12px 0 0', position: 'relative', overflow: 'hidden' }}>

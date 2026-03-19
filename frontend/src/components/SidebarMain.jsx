@@ -7,6 +7,7 @@ const navItems = [
   { path: '/dashboard/resumes', icon: 'fas fa-file-alt',    label: 'My Resumes' },
   { path: '/templates',         icon: 'fas fa-layer-group', label: 'Templates' },
   { path: '/builder',           icon: 'fas fa-plus-circle', label: 'New Resume' },
+  { path: '/ats-analyzer',      icon: 'fas fa-chart-bar',   label: 'ATS Analyzer' },
   { path: '/settings',          icon: 'fas fa-cog',         label: 'Settings' },
 ];
 
@@ -32,7 +33,7 @@ const SidebarMain = ({ mobileOpen, onClose }) => {
   });
 
   const Nav = () => (
-    <aside style={{ width: 240, height: '100%', background: '#1E293B', borderRight: '1px solid #334155', display: 'flex', flexDirection: 'column' }}>
+    <aside style={{ width: 240, height: '100%', background: 'rgba(15,23,42,0.85)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderRight: '1px solid rgba(51,65,85,0.8)', display: 'flex', flexDirection: 'column' }}>
       {/* Logo */}
       <div style={{ padding: '20px', borderBottom: '1px solid #334155', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Link to="/" className="d-flex align-items-center gap-2 text-decoration-none" onClick={onClose}>
@@ -90,8 +91,6 @@ const SidebarMain = ({ mobileOpen, onClose }) => {
           <span style={{ color: '#475569', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, padding: '0 12px', display: 'block', marginBottom: 6 }}>Coming Soon</span>
           {[
             { icon: 'fas fa-brain', label: 'AI Resume Writer' },
-            { icon: 'fas fa-comments', label: 'Interview Prep' },
-            { icon: 'fas fa-bullseye', label: 'Job Match' },
           ].map((item) => (
             <div key={item.label}
               style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', borderRadius: 8, marginBottom: 2, color: '#475569', fontSize: '0.875rem', cursor: 'default', borderLeft: '3px solid transparent' }}>

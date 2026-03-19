@@ -1,7 +1,7 @@
 import Navbar from '../components/NavbarMain';
 
 const MainLayout = ({ children }) => (
-  <div style={{ minHeight: '100vh', background: '#0F172A' }}>
+  <div style={{ minHeight: '100vh', background: 'transparent' }}>
     <Navbar />
     <main>{children}</main>
     <footer style={{ background: '#1E293B', borderTop: '1px solid #334155', padding: '40px 0 24px' }}>

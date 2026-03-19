@@ -18,14 +18,18 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Handle 401 globally
+// Handle 401 globally — only redirect for non-auth endpoints
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('cvpilot_token');
-      localStorage.removeItem('cvpilot_user');
-      window.location.href = '/auth';
+      const url = error.config?.url || '';
+      // Don't hard-redirect for /auth/me — let Redux getMe.rejected handle it
+      if (!url.includes('/auth/me') && !url.includes('/auth/login') && !url.includes('/auth/register')) {
+        localStorage.removeItem('cvpilot_token');
+        localStorage.removeItem('cvpilot_user');
+        window.location.href = '/auth';
+      }
     }
     return Promise.reject(error);
   }

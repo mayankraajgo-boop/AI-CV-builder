@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchResume, updateResume, createResume } from '../store/resumeSlice';
-import DashboardLayout from '../layouts/DashboardMain';
+import DashboardLayout from '../layouts/DashboardMainV2';
 import { FormInput, FormTextarea, SectionHeader, ItemCard } from '../components/FormInputs';
 import { exportToPDF } from '../utils/pdfExport';
 import useAutoSave from '../hooks/useAutoSave';

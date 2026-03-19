@@ -25,10 +25,8 @@ const ResumeCard = ({ resume }) => {
   return (
     <div
       className="card h-100"
-      style={{ cursor: 'pointer', transition: 'all 0.25s', position: 'relative', overflow: 'hidden' }}
+      style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden' }}
       onClick={() => navigate(`/builder/${resume._id}`)}
-      onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(79,70,229,0.25)'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = ''; }}
     >
       {/* Top accent bar */}
       <div style={{ height: 3, background: 'linear-gradient(90deg,#4F46E5,#7C3AED)', position: 'absolute', top: 0, left: 0, right: 0 }} />
